@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Consultation — Muna Sax Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lime:#C8FF3D;
+    --black:#0B0B0B;
+    --ink:#151515;
+    --paper:#FBFBF6;
+    --paper-dim:#F1F1E9;
+    --grey:#6E6E68;
+    --line: rgba(11,11,11,0.14);
+    --display: 'Unbounded', sans-serif;
+    --body: 'Manrope', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--black);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--lime); color:var(--black);}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  :focus-visible{ outline:3px solid var(--black); outline-offset:2px; }
+
+  h1,h2,h3{ font-family:var(--display); font-weight:700; line-height:1.08; letter-spacing:-0.01em; }
+
+  .eyebrow{
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:0.14em; font-size:12px;
+    display:flex; align-items:center; gap:10px; color:var(--black);
+  }
+  .eyebrow::before{ content:""; width:8px;height:8px; background:var(--lime); border:1.5px solid var(--black); border-radius:50%; flex:none; }
+
+  /* ---------------- header ---------------- */
+  header{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+  }
+  .head-wrap{
+    max-width:1280px; margin:0 auto; padding:0 32px;
+    height:84px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{ font-family:var(--display); font-weight:900; font-size:18px; display:flex; align-items:center; gap:10px; }
+  .logo .dot{ width:10px;height:10px; background:var(--lime); border:1.5px solid var(--black); border-radius:50%; }
+  .back-link{
+    font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.06em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .back-link:hover{ color:var(--lime-deep,#0B0B0B); text-decoration:underline; }
+
+  /* ---------------- layout ---------------- */
+  .page{
+    max-width:1280px; margin:0 auto; padding:64px 32px 120px;
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:start;
+  }
+  @media (max-width:900px){ .page{ grid-template-columns:1fr; gap:40px; padding:40px 24px 80px; } }
+
+  /* left context panel */
+  .context{ position:sticky; top:40px; }
+  @media (max-width:900px){ .context{ position:static; } }
+  .context h1{ font-size:clamp(2rem,4vw,2.9rem); text-transform:uppercase; margin:20px 0 20px; }
+  .context p.lede{ font-size:16.5px; color:var(--ink); max-width:46ch; margin-bottom:36px; }
+
+  .steps{ display:flex; flex-direction:column; gap:0; margin-bottom:40px; }
+  .step-row{
+    display:flex; gap:16px; padding:16px 0; border-top:1px solid var(--line);
+  }
+  .steps .step-row:last-child{ border-bottom:1px solid var(--line); }
+  .step-num{
+    font-family:var(--mono); font-size:12px; color:var(--grey); flex:none; padding-top:2px;
+  }
+  .step-row.active .step-num{ color:var(--black); }
+  .step-row.active .step-num::before{ content:"→ "; color:var(--lime-deep,#0B0B0B); }
+  .step-text b{ font-family:var(--display); font-weight:500; font-size:15px; display:block; margin-bottom:2px; }
+  .step-text span{ font-size:13.5px; color:var(--grey); }
+
+  .seal-mini{ display:flex; align-items:center; gap:14px; }
+  .seal-mini svg{ width:52px; height:52px; }
+  .seal-mini p{ font-family:var(--mono); font-size:12px; color:var(--grey); text-transform:uppercase; letter-spacing:0.06em; line-height:1.5; }
+
+  /* ---------------- form card ---------------- */
+  .form-card{
+    background:var(--paper);
+    border:1.5px solid var(--black);
+    border-radius:22px;
+    padding:48px;
+  }
+  @media (max-width:600px){ .form-card{ padding:28px 22px; border-radius:16px; } }
+
+  fieldset{ border:none; margin:0 0 40px; padding:0; }
+  fieldset:last-of-type{ margin-bottom:0; }
+  legend{
+    font-family:var(--mono); text-transform:uppercase; font-size:12px; letter-spacing:0.1em;
+    color:var(--grey); margin-bottom:18px; padding:0;
+  }
+
+  .field{ margin-bottom:22px; }
+  .field:last-child{ margin-bottom:0; }
+  label.flabel{
+    display:block; font-family:var(--display); font-weight:500; font-size:14.5px; margin-bottom:8px;
+  }
+  .req{ color:var(--grey); font-family:var(--mono); font-size:11px; text-transform:none; font-weight:400; margin-left:6px; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=date], input[type=time], textarea, select{
+    width:100%;
+    font-family:var(--body); font-size:15.5px; color:var(--black);
+    padding:14px 16px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    transition:border-color .2s ease;
+  }
+  input:focus, textarea:focus, select:focus{ border-color:var(--black); outline:none; }
+  textarea{ resize:vertical; min-height:110px; font-family:var(--body); }
+  ::placeholder{ color:#A5A59D; }
+
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:520px){ .row2{ grid-template-columns:1fr; } }
+
+  /* service chip select */
+  .chip-select{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip-select input{ position:absolute; opacity:0; width:1px; height:1px; }
+  .chip-select label{
+    font-family:var(--mono); font-size:12.5px; text-transform:uppercase; letter-spacing:0.04em;
+    padding:11px 18px; border-radius:100px; border:1.5px solid var(--line);
+    cursor:pointer; transition:all .18s ease; user-select:none;
+  }
+  .chip-select input:checked + label{
+    background:var(--black); border-color:var(--black); color:var(--lime);
+  }
+  .chip-select input:focus-visible + label{ outline:3px solid var(--black); outline-offset:2px; }
+  .chip-select label:hover{ border-color:var(--black); }
+
+  /* radio cards for budget/timeline */
+  .radio-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media (max-width:600px){ .radio-cards{ grid-template-columns:1fr; } }
+  .radio-cards input{ position:absolute; opacity:0; width:1px; height:1px; }
+  .radio-cards label{
+    display:block; padding:16px; border:1.5px solid var(--line); border-radius:12px;
+    cursor:pointer; transition:all .18s ease;
+  }
+  .radio-cards label b{ font-family:var(--display); font-weight:500; font-size:14.5px; display:block; margin-bottom:3px; }
+  .radio-cards label span{ font-family:var(--mono); font-size:12px; color:var(--grey); }
+  .radio-cards input:checked + label{ border-color:var(--black); background:var(--lime); }
+  .radio-cards input:checked + label span{ color:var(--black); }
+  .radio-cards input:focus-visible + label{ outline:3px solid var(--black); outline-offset:2px; }
+
+  .hint{ font-family:var(--mono); font-size:12px; color:var(--grey); margin-top:8px; }
+
+  .submit-row{
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    margin-top:44px; padding-top:28px; border-top:1px solid var(--line);
+  }
+  .submit-row p{ font-family:var(--mono); font-size:12px; color:var(--grey); max-width:32ch; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+    padding:17px 30px; border-radius:100px; border:1.5px solid var(--black);
+    background:var(--lime); color:var(--black); cursor:pointer;
+    transition:transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); background:var(--black); color:var(--lime); }
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; transform:none; }
+
+  .error-msg{
+    font-family:var(--mono); font-size:12px; color:#B3261E; margin-top:8px; display:none;
+  }
+  .field.invalid input, .field.invalid textarea{ border-color:#B3261E; }
+  .field.invalid .error-msg{ display:block; }
+
+  /* confirmation state */
+  .confirm{
+    display:none;
+    text-align:center;
+    padding:20px 0 10px;
+  }
+  .confirm.show{ display:block; }
+  .form-card.confirmed form{ display:none; }
+  .confirm-badge{
+    width:74px; height:74px; margin:0 auto 28px; border-radius:50%;
+    background:var(--lime); border:1.5px solid var(--black);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .confirm h2{ font-size:clamp(1.5rem,3vw,2.1rem); text-transform:uppercase; margin-bottom:14px; }
+  .confirm p{ color:var(--ink); max-width:44ch; margin:0 auto 28px; }
+  .confirm-summary{
+    text-align:left; border:1px solid var(--line); border-radius:14px; padding:22px 24px;
+    margin:0 auto 28px; max-width:440px; font-size:14.5px;
+  }
+  .confirm-summary div{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); }
+  .confirm-summary div:last-child{ border-bottom:none; }
+  .confirm-summary span:first-child{ color:var(--grey); font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; }
+  .confirm-summary span:last-child{ font-family:var(--display); font-weight:500; text-align:right; }
+
+   footer{ background:var(--black); color:var(--paper); border-top:1px solid rgba(255,255,255,0.14); }
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    padding:64px 0 40px;
+  }
+  @media (max-width:800px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-col h4{
+    font-family:var(--mono); text-transform:uppercase; font-size:12px; letter-spacing:0.1em; color:var(--lime);
+    margin-bottom:18px;
+  }
+  .foot-col p, .foot-col a{ font-size:14.5px; color:rgba(251,251,246,0.75); display:block; margin-bottom:10px; }
+  .foot-col a:hover{ color:var(--lime); }
+  .foot-logo{ font-family:var(--display); font-weight:900; font-size:20px; margin-bottom:16px; }
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,0.14);
+    padding:22px 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:12px; color:rgba(251,251,246,0.5); text-transform:uppercase; letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-wrap">
+    <a href="muna2.html" class="logo"><img src="muna sax logo.png" width="60" height="40" alt=""><span class="dot"></span>MUNA SAX STUDIO</a>
+    <a href="muna2.html" class="back-link">← Back to site</a>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- LEFT: context -->
+  <div class="context">
+    <p class="eyebrow">Start a project</p>
+    <h1>Book a free consultation.</h1>
+    <p class="lede">Tell us about your brand and what you need. We'll get back to you within 1–2 business days to confirm a time and next steps.</p>
+
+    <div class="steps">
+      <div class="step-row active">
+        <span class="step-num">01</span>
+        <div class="step-text"><b>Tell us what you need</b><span>Services, project details, budget &amp; timeline</span></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">02</span>
+        <div class="step-text"><b>We review your request</b><span>Our team looks over your brief within 1–2 business days</span></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">03</span>
+        <div class="step-text"><b>We confirm your consultation</b><span>You'll get an email to lock in a date and time</span></div>
+      </div>
+    </div>
+
+    <div class="seal-mini">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="var(--lime)" stroke="var(--black)" stroke-width="1.2"/>
+        <path d="M7 12.5l3.2 3.2L17 9" stroke="var(--black)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p>No payment required to book a<br>consultation — just your brief.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: form -->
+  <div class="form-card" id="formCard">
+    <form id="bookingForm" novalidate>
+
+      <fieldset>
+        <legend>Which services are you interested in?</legend>
+        <div class="chip-select" id="serviceChips">
+          <input type="checkbox" id="s1" name="services" value="Brand Identity Design"><label for="s1">Brand Identity Design</label>
+          <input type="checkbox" id="s2" name="services" value="Logo Design"><label for="s2">Logo Design</label>
+          <input type="checkbox" id="s3" name="services" value="Website Design"><label for="s3">Website Design</label>
+          <input type="checkbox" id="s4" name="services" value="UI/UX Design"><label for="s4">UI/UX Design</label>
+          <input type="checkbox" id="s5" name="services" value="Social Media Branding"><label for="s5">Social Media Branding</label>
+          <input type="checkbox" id="s6" name="services" value="Flyer &amp; Poster Design"><label for="s6">Flyer &amp; Poster Design</label>
+          <input type="checkbox" id="s7" name="services" value="Event Branding"><label for="s7">Event Branding</label>
+          <input type="checkbox" id="s8" name="services" value="Print Design"><label for="s8">Print Design</label>
+          <input type="checkbox" id="s9" name="services" value="Motion Graphics"><label for="s9">Motion Graphics</label>
+          <input type="checkbox" id="s10" name="services" value="Presentation Design"><label for="s10">Presentation Design</label>
+          <input type="checkbox" id="s11" name="services" value="Brand Strategy"><label for="s11">Brand Strategy</label>
+          <input type="checkbox" id="s12" name="services" value="Custom Design Solutions"><label for="s12">Custom Design Solutions</label>
+        </div>
+        <p class="error-msg" id="serviceError">Pick at least one service so we know what to prepare for.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Project budget</legend>
+        <div class="radio-cards" id="budgetCards">
+          <input type="radio" name="budget" id="b1" value="Under ₦150,000">
+          <label for="b1"><b>Starter</b><span>Under ₦150,000</span></label>
+          <input type="radio" name="budget" id="b2" value="₦150,000 – ₦500,000">
+          <label for="b2"><b>Growth</b><span>₦150,000 – ₦500,000</span></label>
+          <input type="radio" name="budget" id="b3" value="₦500,000+">
+          <label for="b3"><b>Established</b><span>₦500,000+</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Your details</legend>
+        <div class="field">
+          <label class="flabel" for="fullname">Full name<span class="req">required</span></label>
+          <input type="text" id="fullname" name="fullname" placeholder="e.g. Ada Okafor" required>
+          <p class="error-msg">Enter your name so we know who we're speaking with.</p>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label class="flabel" for="email">Email<span class="req">required</span></label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" required>
+            <p class="error-msg">Enter a valid email so we can reach you.</p>
+          </div>
+          <div class="field">
+            <label class="flabel" for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+234 000 000 0000">
+          </div>
+        </div>
+        <div class="field">
+          <label class="flabel" for="company">Business, ministry or organisation</label>
+          <input type="text" id="company" name="company" placeholder="Optional — leave blank if personal brand">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Preferred consultation time</legend>
+        <div class="row2">
+          <div class="field">
+            <label class="flabel" for="date">Preferred date<span class="req">required</span></label>
+            <input type="date" id="date" name="date" required>
+            <p class="error-msg">Choose a date so we can check availability.</p>
+          </div>
+          <div class="field">
+            <label class="flabel" for="time">Preferred time<span class="req">required</span></label>
+            <input type="time" id="time" name="time" required>
+            <p class="error-msg">Choose a time that works for you.</p>
+          </div>
+        </div>
+        <p class="hint">Consultations run Monday–Friday, 9am–5pm. We'll confirm the exact time by email.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tell us about your project</legend>
+        <div class="field">
+          <label class="flabel" for="brief">Project details<span class="req">required</span></label>
+          <textarea id="brief" name="brief" placeholder="What are you working on? What does success look like for this project?" required></textarea>
+          <p class="error-msg">Add a few details so we can prepare for the call.</p>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <p>By booking, you agree to be contacted by Muna Sax Studio about your request.</p>
+        <button type="submit" class="btn">Request consultation</button>
+      </div>
+    </form>
+
+    <div class="confirm" id="confirmBlock">
+      <div class="confirm-badge">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>Request received</h2>
+      <p>Thanks — we've got your brief. Our team will review it and email you within 1–2 business days to confirm your consultation.</p>
+      <div class="confirm-summary" id="confirmSummary"></div>
+      <a href="muna2.html" class="btn">Back to homepage</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById('bookingForm');
+  const formCard = document.getElementById('formCard');
+  const confirmBlock = document.getElementById('confirmBlock');
+  const confirmSummary = document.getElementById('confirmSummary');
+
+  function setInvalid(field, invalid){
+    field.classList.toggle('invalid', invalid);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    let valid = true;
+
+    // services: at least one checked
+    const services = Array.from(form.querySelectorAll('input[name="services"]:checked')).map(i => i.value);
+    const serviceField = document.getElementById('serviceChips').closest('fieldset');
+    if(services.length === 0){
+      serviceField.querySelector('.error-msg').style.display = 'block';
+      valid = false;
+    } else {
+      serviceField.querySelector('.error-msg').style.display = 'none';
+    }
+
+    // required text fields
+    ['fullname','email','date','time','brief'].forEach(function(id){
+      const input = document.getElementById(id);
+      const field = input.closest('.field');
+      const filled = input.value.trim().length > 0;
+      const emailOk = id !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      if(!filled || !emailOk){
+        setInvalid(field, true);
+        valid = false;
+      } else {
+        setInvalid(field, false);
+      }
+    });
+
+    if(!valid){
+      const firstInvalid = form.querySelector('.invalid, .error-msg[style*="block"]');
+      if(firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const budget = form.querySelector('input[name="budget"]:checked');
+
+    confirmSummary.innerHTML = [
+      ['Name', document.getElementById('fullname').value],
+      ['Email', document.getElementById('email').value],
+      ['Services', services.join(', ')],
+      ['Budget', budget ? budget.value : 'Not specified'],
+      ['Preferred date', document.getElementById('date').value],
+      ['Preferred time', document.getElementById('time').value]
+    ].map(function(row){
+      return '<div><span>' + row[0] + '</span><span>' + row[1] + '</span></div>';
+    }).join('');
+
+    formCard.classList.add('confirmed');
+    confirmBlock.classList.add('show');
+    confirmBlock.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+</script>
+
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <div class="foot-logo">MUNA SAX STUDIO</div>
+      <p>Creative branding and design agency — turning ideas into visual identities that inspire, communicate and leave a lasting impression.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Studio</h4>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#values">Core Values</a>
+    </div>
+    <div class="foot-col">
+      <h4>Services</h4>
+      <a href="#services">Brand Identity</a>
+      <a href="#services">Website &amp; UI/UX</a>
+      <a href="#services">Event Branding</a>
+      <a href="#services">Motion Graphics</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@munasaxstudio.com">promisechimezie916@gmail.com</a>
+      <a href="tel:+000000000">+234 (0) 816 684 4537</a>
+      <a href="tel:+234 (0) 912 653 9694">+234 (0) 912 653 9694</a>
+      <a rel="stylesheet" href="https://www.facebook.com/chimezie.promise.98478">Facbook</a>
+      <a rel="stylesheet" href="">Tiktok</a>
+      <a rel="stylesheet" href="">Behance</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Muna Sax Studio. All rights reserved.</span>
+    <span>Designed with creativity + strategy</span>
+  </div>
+</footer>
+
+</body>
+</html>

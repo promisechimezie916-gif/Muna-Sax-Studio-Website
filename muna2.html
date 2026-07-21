@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muna Sax Studio — Brand Design Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lime:#C8FF3D;
+    --lime-deep:#9FDC00;
+    --black:#0B0B0B;
+    --ink:#151515;
+    --paper:#FBFBF6;
+    --paper-dim:#F1F1E9;
+    --grey:#6E6E68;
+    --line: rgba(11,11,11,0.12);
+    --display: 'Unbounded', sans-serif;
+    --body: 'Manrope', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--black);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--lime); color:var(--black);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{
+    outline:3px solid var(--black);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--black);
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px;height:8px;
+    background:var(--lime);
+    border:1.5px solid var(--black);
+    border-radius:50%;
+    flex:none;
+  }
+  .section-pad{ padding:120px 0; }
+  @media (max-width:800px){ .section-pad{ padding:72px 0; } }
+
+  h1,h2,h3{ font-family:var(--display); font-weight:700; line-height:1.05; letter-spacing:-0.01em; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    padding:16px 28px;
+    border-radius:100px;
+    border:1.5px solid var(--black);
+    background:var(--lime);
+    color:var(--black);
+    cursor:pointer;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{ transform:translateY(-2px); background:var(--black); color:var(--lime); }
+  .btn.ghost{ background:transparent; color:var(--black); }
+  .btn.ghost:hover{ background:var(--black); color:var(--paper); }
+  .btn.on-dark{ background:var(--lime); color:var(--black); border-color:var(--lime); }
+  .btn.on-dark:hover{ background:var(--paper); color:var(--black); }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,251,246,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:84px;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:18px;
+    letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{ width:10px;height:10px; background:var(--lime); border:1.5px solid var(--black); border-radius:50%;}
+  .navlinks{ display:flex; gap:36px; align-items:center; }
+  .navlinks a{
+    font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.06em;
+    position:relative; padding-bottom:4px;
+  }
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--black);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{ width:100%; }
+  .navlinks-mid{ display:flex; gap:36px; }
+  @media (max-width:900px){ .navlinks-mid{ display:none; } }
+
+  .hero{
+    position:relative;
+    padding:88px 0 64px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.3fr 0.7fr;
+    gap:40px;
+    align-items:end;
+  }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.6rem);
+    text-transform:uppercase;
+    margin:20px 0 28px;
+  }
+  .hero h1 .hl{
+    background:var(--lime);
+    padding:0 10px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .hero p.lede{
+    font-size:19px;
+    max-width:520px;
+    color:var(--ink);
+    margin-bottom:36px;
+  }
+  .hero-cta{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .seal-wrap{
+    justify-self:end;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+  }
+  .seal{
+    width:190px; height:190px;
+    position:relative;
+  }
+  .seal svg{ width:100%; height:100%; animation:spin 22s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .seal-center{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .seal-center svg{ animation:none; width:56px; height:56px; }
+  .seal-caption{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--grey); text-align:center;
+  }
+
+  .hero-strip{
+    margin-top:80px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex;
+    gap:48px;
+    animation:marquee 32s linear infinite;
+    font-family:var(--mono);
+    text-transform:uppercase;
+    font-size:13px;
+    letter-spacing:0.08em;
+    color:var(--grey);
+  }
+  .marquee-track span{ display:flex; align-items:center; gap:48px; }
+  .marquee-track b{ color:var(--black); }
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:64px;
+  }
+  @media (max-width:850px){ .about-grid{ grid-template-columns:1fr; gap:32px; } }
+  .about-grid h2{
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    text-transform:uppercase;
+  }
+  .about-copy p{ margin-bottom:20px; color:var(--ink); font-size:17px; max-width:60ch; }
+  .about-copy p:last-child{ margin-bottom:0; }
+  .callout-row{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:48px;
+  }
+  @media (max-width:600px){ .callout-row{ grid-template-columns:1fr; } }
+  .callout{
+    background:var(--paper);
+    padding:28px 24px;
+  }
+  .callout .k{ font-family:var(--display); font-weight:900; font-size:26px; }
+  .callout .v{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--grey); margin-top:6px; }
+
+  .services{ background:var(--black); color:var(--paper); }
+  .services .eyebrow{ color:var(--lime); }
+  .services .eyebrow::before{ border-color:var(--lime); }
+  .services h2{ color:var(--paper); text-transform:uppercase; font-size:clamp(1.9rem,4vw,2.8rem); margin-bottom:48px;}
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.14);
+  }
+  @media (max-width:900px){ .service-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .service-grid{ grid-template-columns:1fr;} }
+  .service-card{
+    background:var(--black);
+    padding:32px 26px;
+    transition:background .2s ease, color .2s ease;
+    position:relative;
+  }
+  .service-card:hover{ background:var(--lime); color:var(--black); }
+  .service-card .num{
+    font-family:var(--mono); font-size:12px; color:var(--lime); opacity:0.8;
+  }
+  .service-card:hover .num{ color:var(--black); }
+  .service-card .name{
+    font-family:var(--display); font-weight:500; font-size:17px; margin-top:14px; line-height:1.3;
+  }
+
+  .mv-grid{ display:grid; grid-template-columns:1fr 1fr; }
+  @media (max-width:800px){ .mv-grid{ grid-template-columns:1fr; } }
+  .mv-panel{ padding:72px 56px; min-height:340px; display:flex; flex-direction:column; justify-content:space-between; }
+  @media (max-width:800px){ .mv-panel{ padding:56px 32px; } }
+  .mv-panel.dark{ background:var(--black); color:var(--paper); }
+  .mv-panel.lime{ background:var(--lime); color:var(--black); }
+  .mv-panel .tag{ font-family:var(--mono); text-transform:uppercase; font-size:12px; letter-spacing:0.1em; }
+  .mv-panel h3{ font-size:clamp(1.5rem,3vw,2.1rem); text-transform:uppercase; margin:24px 0; }
+  .mv-panel p{ font-size:17px; max-width:44ch; }
+
+  .why-grid{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:64px; align-items:start; }
+  @media (max-width:850px){ .why-grid{ grid-template-columns:1fr; gap:32px; } }
+  .why-grid h2{ font-size:clamp(1.9rem,4vw,2.8rem); text-transform:uppercase; position:sticky; top:110px; }
+  .why-list{ display:flex; flex-direction:column; }
+  .why-item{
+    display:flex; gap:20px; align-items:flex-start;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .why-item:first-child{ border-top:1px solid var(--line); }
+  .check{
+    flex:none; width:26px; height:26px; border-radius:50%;
+    background:var(--lime); border:1.5px solid var(--black);
+    display:flex; align-items:center; justify-content:center;
+    margin-top:2px;
+  }
+  .check svg{ width:13px; height:13px; }
+  .why-item p{ font-size:16.5px; color:var(--ink); }
+  .why-item b{ font-family:var(--display); font-weight:500; display:block; margin-bottom:4px; font-size:16px; }
+
+  .values{ background:var(--paper-dim); }
+  .values h2{ font-size:clamp(1.9rem,4vw,2.8rem); text-transform:uppercase; margin-bottom:44px; }
+  .value-chips{ display:flex; flex-wrap:wrap; gap:14px; }
+  .chip{
+    font-family:var(--display); font-weight:500; font-size:15px;
+    padding:14px 24px; border-radius:100px; border:1.5px solid var(--black);
+    background:var(--paper);
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .chip:hover{ background:var(--black); color:var(--lime); transform:translateY(-2px); }
+
+  .team-head{ display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:48px; flex-wrap:wrap; }
+  .team-head h2{ font-size:clamp(1.9rem,4vw,2.8rem); text-transform:uppercase; }
+  .team-head p{ max-width:38ch; color:var(--grey); font-size:14.5px; }
+  .team-grid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:20px;
+  }
+  @media (max-width:900px){ .team-grid{ grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .team-grid{ grid-template-columns:repeat(2,1fr);} }
+  .team-card{
+    border:1.5px dashed var(--line);
+    border-radius:18px;
+    padding:22px 16px;
+    text-align:center;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .team-card:hover{ border-color:var(--black); background:var(--paper); border-style:solid; }
+  .avatar{
+    width:64px; height:64px; margin:0 auto 16px;
+    border-radius:50%;
+    background:var(--black);
+    color:var(--lime);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:700; font-size:15px;
+  }
+  .team-card .role{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink); line-height:1.4; }
+  .team-note{
+    margin-top:28px; font-family:var(--mono); font-size:12.5px; color:var(--grey);
+    border-left:2px solid var(--lime); padding-left:14px;
+  }
+
+  .cta{ background:var(--black); color:var(--paper); text-align:center; }
+  .cta h2{
+    font-size:clamp(2.2rem,6vw,4rem); text-transform:uppercase; color:var(--paper);
+    max-width:16ch; margin:0 auto 36px;
+  }
+  .cta .lime-word{ color:var(--lime); }
+  .cta-actions{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:0; }
+
+  footer{ background:var(--black); color:var(--paper); border-top:1px solid rgba(255,255,255,0.14); }
+  .foot-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    padding:64px 0 40px;
+  }
+  @media (max-width:800px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-col h4{
+    font-family:var(--mono); text-transform:uppercase; font-size:12px; letter-spacing:0.1em; color:var(--lime);
+    margin-bottom:18px;
+  }
+  .foot-col p, .foot-col a{ font-size:14.5px; color:rgba(251,251,246,0.75); display:block; margin-bottom:10px; }
+  .foot-col a:hover{ color:var(--lime); }
+  .foot-logo{ font-family:var(--display); font-weight:900; font-size:20px; margin-bottom:16px; }
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,0.14);
+    padding:22px 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:12px; color:rgba(251,251,246,0.5); text-transform:uppercase; letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="muna sax logo"><img src="muna sax logo.png"dot" width="60" height="40"></span>MUNA SAX STUDIO</a>
+    <div class="navlinks-mid">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#values">Values</a>
+      <a href="#portfolio">Portfolio</a>
+    </div>
+    <div class="navlinks">
+      <a href="booking.html" class="btn">Book Us Now</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Creative Branding &amp; Design Studio</p>
+      <h1>We design brands<br>that leave <span class="hl">lasting</span><br>impressions.</h1>
+
+      <div class="hero-grid">
+        <div>
+          <p class="lede">Muna Sax Studio Help Brands, Organisations, Churches, Business, </p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn">Let's build something extraordinary</a>
+            <a href="#services" class="btn ghost">See our services</a>
+          </div>
+        </div>
+
+        <div class="seal-wrap">
+          <div class="seal">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <defs>
+                <path id="circlePath" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
+              </defs>
+              <circle cx="100" cy="100" r="96" fill="var(--lime)"/>
+              <circle cx="100" cy="100" r="96" fill="none" stroke="var(--black)" stroke-width="1.5"/>
+              <text fill="var(--black)" font-family="Space Mono, monospace" font-size="11" letter-spacing="2">
+                <textPath href="#circlePath" startOffset="0%">
+                  MUNA SAX STUDIO • CREATIVE DESIGN AGENCY • MUNA SAX STUDIO •
+                </textPath>
+              </text>
+            </svg>
+            <div class="seal-center">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="11" fill="var(--black)"/>
+                <path d="M7 12.5l3.2 3.2L17 9" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <p class="seal-caption">Est. for brands<br>with a story to tell</p>
+        </div>
+      </div>
+
+      <div class="hero-strip">
+        <div class="marquee-track">
+          <span>
+            <b>Brand Identity</b> · Logo Design · Website Design · UI/UX · Social Media Branding · Event Branding · Motion Graphics ·
+          </span>
+          <span>
+            <b>Brand Identity</b> · Logo Design · Website Design · UI/UX · Social Media Branding · Event Branding · Motion Graphics ·
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">About the studio</p>
+        <h2>Every brand has a story worth telling.</h2>
+      </div>
+      <div class="about-copy">
+        <p>Muna Sax Studio is a creative branding and design agency dedicated to transforming ideas into powerful visual experiences. Our mission is to bring each client's story to life through thoughtful strategy, creativity and exceptional design — whether that means building a brand from the ground up or elevating one that already exists.</p>
+        <p>We don't just create beautiful designs — we create solutions that help brands connect with their audience, build trust, and stand out in an increasingly competitive world. From startups to established businesses, churches to non-profit organisations, and personal brands to large-scale events, we approach every project with professionalism, innovation and attention to detail.</p>
+        <p>Our commitment goes beyond delivering designs. We build relationships, understand our clients' visions, and work collaboratively to ensure every project reflects excellence and achieves its intended purpose.</p>
+
+        <div class="callout-row">
+          <div class="callout">
+            <div class="k">15+</div>
+            <div class="v">Creative services</div>
+          </div>
+          <div class="callout">
+            <div class="k">360°</div>
+            <div class="v">Brand &amp; strategy support</div>
+          </div>
+          <div class="callout">
+            <div class="k">Africa</div>
+            <div class="v">Rooted, globally minded</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad services" id="services">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2>Our services</h2>
+      <div class="service-grid">
+        <div class="service-card"> <div class="num">01</div><div class="name" >Brand Identity Design</div></div>
+        <div class="service-card"><div class="num">02</div><div class="name">Logo Design</div></div>
+        <div class="service-card"><div class="num">03</div><div class="name">Website Design</div></div>
+        <div class="service-card"><div class="num">04</div><div class="name">UI/UX Design</div></div>
+        <div class="service-card"><div class="num">05</div><div class="name">Social Media Branding</div></div>
+        <div class="service-card"><div class="num">06</div><div class="name">Flyer &amp; Poster Design</div></div>
+        <div class="service-card"><div class="num">07</div><div class="name">Event Branding</div></div>
+        <div class="service-card"><div class="num">08</div><div class="name">Print Design</div></div>
+        <div class="service-card"><div class="num">09</div><div class="name">Motion Graphics</div></div>
+        <div class="service-card"><div class="num">10</div><div class="name">Presentation Design</div></div>
+        <div class="service-card"><div class="num">11</div><div class="name">Business Branding</div></div>
+        <div class="service-card"><div class="num">12</div><div class="name">Creative Direction</div></div>
+        <div class="service-card"><div class="num">13</div><div class="name">Media Consultancy</div></div>
+        <div class="service-card"><div class="num">14</div><div class="name">Digital Marketing Designs</div></div>
+        <div class="service-card"><div class="num">15</div><div class="name">Custom Design Solutions</div></div>
+        <div class="service-card"><div class="num">16</div><div class="name">Packaging Design</div></div>
+        <div class="service-card"><div class="num">17</div><div class="name">Advertising Design</div></div>
+        <div class="service-card"><div class="num">18</div><div class="name">Photography &amp; Videography</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" id="portfolio">
+    <div class="wrap">
+      <p class="eyebrow"> <h1>Our work</h1></p>
+      <h2>Portfolio</h2>
+      <p>Tap the link below to view our latest projects.</p>
+      <nav class="portfolio-nav">
+    </div>
+
+  <section class="mv-grid">
+    <div class="mv-panel dark">
+      <span class="tag">Our Mission</span>
+      <h3>Empowering brands to grow with confidence.</h3>
+      <p>To empower businesses, ministries, organisations and entrepreneurs with strategic, innovative and impactful creative solutions that inspire growth, build trust and communicate excellence.</p>
+    </div>
+    <div class="mv-panel lime">
+      <span class="tag">Our Vision</span>
+      <h3>A leading creative studio, recognised globally.</h3>
+      <p>To become one of Africa's leading creative studios — recognised globally for world-class branding, innovative design solutions and creative excellence that transforms ideas into unforgettable experiences.</p>
+    </div>
+  </section>
+
+  <section class="section-pad" id="why">
+    <div class="wrap why-grid">
+      <h2>Why choose<br>Muna Sax Studio?</h2>
+      <div class="why-list">
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Tailored creative solutions</b>Every recommendation is shaped around your brand, not a template.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Professional, timely delivery</b>Clear timelines and dependable project management from day one.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Strategic design that communicates</b>Visuals grounded in a clear brand strategy, not decoration alone.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Attention to detail</b>Careful craftsmanship in every file, layout and pixel we hand over.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>A collaborative approach</b>We work with you, not just for you, at every stage of the project.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Passion for excellence</b>Innovation and quality craftsmanship guide every brief we take on.</p>
+        </div>
+        <div class="why-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <p><b>Support from concept to completion</b>Dedicated guidance across the full lifespan of your project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad values" id="values">
+    <div class="wrap">
+      <p class="eyebrow">What guides us</p>
+      <h2>Our core values</h2>
+      <div class="value-chips">
+        <span class="chip">Creativity</span>
+        <span class="chip">Excellence</span>
+        <span class="chip">Integrity</span>
+        <span class="chip">Innovation</span>
+        <span class="chip">Professionalism</span>
+        <span class="chip">Collaboration</span>
+        <span class="chip">Customer Satisfaction</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" id="team">
+    <div class="wrap">
+      <div class="team-head">
+        <div>
+          <p class="eyebrow">The people behind the work</p>
+          <h2>Meet our team</h2>
+        </div>
+        <p>A passionate team of creatives combining diverse talents, fresh perspectives and years of experience to deliver outstanding results.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png" ></div><div class="role">Creative Director</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Brand Strategist</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Graphic Designer</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">UI/UX Designer</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Web Developer</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Motion Graphics Designer</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Social Media Manager</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Content Creator</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Project Manager</div></div>
+        <div class="team-card"><div class="avatar"><img src="muna sax logo.png"></div><div class="role">Client Relations Manager</div></div>
+      </div>
+      <p class="team-note">Add profile photos, names, short bios and social links for each team member here.</p>
+    </div>
+  </section>
+
+  <section class="section-pad cta" id="contact">
+    <div class="wrap">
+      <p class="eyebrow" style="justify-content:center; color:var(--lime);">Let's build something extraordinary</p>
+      <h2 style="margin-top:24px;">Ready to make a <span class="lime-word">lasting impression</span>?</h2>
+      <div class="cta-actions">
+        <a href="mailto:promisechimezie916@gmail.com" class="btn on-dark">promisechimezie916@gmail.com</a>
+        <a href="#top" class="btn ghost" style="color:var(--paper); border-color:rgba(251,251,246,0.4);">Back to top</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <div class="foot-logo">MUNA SAX STUDIO</div>
+      <p>Creative branding and design agency — turning ideas into visual identities that inspire, communicate and leave a lasting impression.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Studio</h4>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#values">Core Values</a>
+    </div>
+    <div class="foot-col">
+      <h4>Services</h4>
+      <a href="#services">Brand Identity</a>
+      <a href="#services">Website &amp; UI/UX</a>
+      <a href="#services">Event Branding</a>
+      <a href="#services">Motion Graphics</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@munasaxstudio.com">promisechimezie916@gmail.com</a>
+      <a href="tel:+000000000">+234 (0) 816 684 4537</a>
+      <a href="tel:+234 (0) 912 653 9694">+234 (0) 912 653 9694</a>
+      <p>Add your social links here.</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Muna Sax Studio. All rights reserved.</span>
+    <span>Designed with creativity + strategy</span>
+  </div>
+</footer>
+
+</body>
+</html>
